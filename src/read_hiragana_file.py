@@ -26,8 +26,9 @@ def read_hiragana():
                     r = read_record_ETL8G(f)
                     if b'.HIRA' in r[2]:
                         ary[moji, (j - 1) * 5 + id_dataset] = np.array(r[-1])
+                        print(np.array(r[-1]))
                         moji += 1
-    np.savez_compressed("hiragana.npz", ary)
+    # np.savez_compressed("hiragana.npz", ary)
 
 read_hiragana()
 

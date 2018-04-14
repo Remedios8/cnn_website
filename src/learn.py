@@ -108,7 +108,7 @@ model.compile(loss='categorical_crossentropy',
 # Обучаем модель 75.11%
 model.fit(X_train, Y_train,
               batch_size=16,
-              epochs=10,
+              epochs=50,
               validation_split=0.1,
               shuffle=True,
               verbose=2)
@@ -117,3 +117,15 @@ model.fit(X_train, Y_train,
 score = model.evaluate(X_test, Y_test, verbose=0)
 print('\nTest score   : {:>.4f}'.format(score[0]))
 print('Test accuracy: {:>.4f}'.format(score[1]))
+
+print("Сохраняем сеть")
+# Сохраняем сеть для последующего использования
+# Генерируем описание модели в формате json
+model_json = model.to_json()
+json_file = open("mnist_model.json", "w")
+# Записываем архитектуру сети в файл
+json_file.write(model_json)
+json_file.close()
+# Записываем данные о весах в файл
+model.save_weights("mnist_model.h5")
+print("Сохранение сети завершено")
